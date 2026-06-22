@@ -13,7 +13,6 @@ export async function postUser(req: Request, res: Response) {
 
     const trimmedUsername = username.trim().toLowerCase();
 
-    // Find or create the user
     const [user] = await User.findOrCreate({
       where: { username: trimmedUsername },
       defaults: { username: trimmedUsername },

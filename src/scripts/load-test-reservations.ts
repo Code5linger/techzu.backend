@@ -1,4 +1,3 @@
-// src/scripts/load-test-reservations.ts
 import 'dotenv/config';
 import { sequelize } from '../config/sequelize.js';
 import { Drop } from '../modules/drops/drop.model.js';
@@ -10,7 +9,6 @@ const API_BASE = process.env.API_BASE ?? 'http://localhost:5000';
 async function main() {
   await sequelize.authenticate();
 
-  // create a fresh drop with stock = 1, specifically for this test
   const drop = await Drop.create({
     name: 'LOAD TEST DROP',
     price: '1.00',
@@ -19,8 +17,6 @@ async function main() {
     startsAt: new Date(),
   });
 
-  // create a fresh user to attribute requests to (reservation logic doesn't yet
-  // care about one-reservation-per-user, so any single user id works here)
   const user = await User.create({ username: `loadtest_${Date.now()}` });
 
   console.log(

@@ -21,27 +21,29 @@ export interface DropWithActivity {
 }
 
 export async function listDropsWithActivity(): Promise<DropWithActivity[]> {
-  const drops = await Drop.findAll({ order: [['createdAt', 'ASC'], ['id', 'ASC']] });
+  const drops = await Drop.findAll({
+    order: [
+      ['createdAt', 'ASC'],
+      ['id', 'ASC'],
+    ],
+  });
 
   if (drops.length === 0) return [];
 
   const dropIds = drops.map((d) => d.id);
 
-  // Fetch active reservations
   const activeReservations = await Reservation.findAll({
     where: { dropId: dropIds, status: 'active' },
     order: [['createdAt', 'DESC']],
     include: [{ model: User, attributes: ['username'] }],
   });
 
-  // Fetch purchases
   const purchases = await Purchase.findAll({
     where: { dropId: dropIds },
     order: [['purchasedAt', 'DESC']],
     include: [{ model: User, attributes: ['username'] }],
   });
 
-  // Combine and sort activities per drop in memory
   const activitiesByDrop = new Map<string, DropActivity[]>();
 
   const getUsername = (obj: any) => obj.User?.username ?? 'unknown';

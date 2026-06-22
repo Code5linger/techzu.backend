@@ -38,7 +38,7 @@ Purchase.init(
     reservationId: {
       type: DataTypes.UUID,
       allowNull: false,
-      unique: true, // enforces 1:1 — a reservation can only ever produce one purchase
+      unique: true,
       references: { model: 'Reservations', key: 'id' },
     },
     purchasedAt: {
@@ -51,9 +51,7 @@ Purchase.init(
     sequelize,
     modelName: 'Purchase',
     tableName: 'Purchases',
-    timestamps: false, // purchasedAt covers it; no separate created/updated needed for an append-only log
-    indexes: [
-      { fields: ['dropId', 'purchasedAt'] }, // matches the activity-feed query shape
-    ],
+    timestamps: false,
+    indexes: [{ fields: ['dropId', 'purchasedAt'] }],
   },
 );

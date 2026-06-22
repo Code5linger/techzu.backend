@@ -27,7 +27,7 @@ async function sweepExpiredReservations(): Promise<void> {
           },
         );
 
-        if (affectedRows === 0) return; // already purchased/expired elsewhere — nothing to release
+        if (affectedRows === 0) return;
 
         await incrementStock(reservation.dropId, t);
       });
@@ -45,7 +45,7 @@ async function sweepExpiredReservations(): Promise<void> {
 let intervalHandle: NodeJS.Timeout | null = null;
 
 export function startExpirationSweep(): void {
-  if (intervalHandle) return; // guard against double-start
+  if (intervalHandle) return;
   intervalHandle = setInterval(() => {
     sweepExpiredReservations().catch((err) => {
       console.error('Expiration sweep failed:', err);

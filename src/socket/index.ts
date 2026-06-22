@@ -1,14 +1,5 @@
 import { Server } from 'socket.io';
-// import type { Server as HttpServer } from 'http';
 import { registerSocketServer } from './stock.socket.js';
-
-// export function initSocketServer(httpServer: HttpServer): Server {
-// const io = new Server(httpServer, {
-//   cors: {
-//     origin: process.env.CLIENT_URL || '*',
-//     credentials: true,
-//   },
-// });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function initSocketServer(httpServer: any) {

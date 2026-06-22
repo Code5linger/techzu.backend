@@ -1,4 +1,3 @@
-// src/scripts/seed.ts
 import 'dotenv/config';
 import { sequelize } from '../config/sequelize.js';
 import { User } from '../modules/users/user.model.js';
@@ -8,9 +7,8 @@ import { Purchase } from '../modules/purchases/purchase.model.js';
 
 async function main() {
   await sequelize.authenticate();
-  console.log('DB connected — seeding...');
+  console.log('DB connected! Seeding...');
 
-  // wipe in FK-safe order (children first)
   await Purchase.destroy({ where: {}, truncate: true, cascade: true });
   await Reservation.destroy({ where: {}, truncate: true, cascade: true });
   await Drop.destroy({ where: {}, truncate: true, cascade: true });
@@ -44,16 +42,15 @@ async function main() {
     {
       name: 'Last Pair Special Edition',
       price: '999.00',
-      totalStock: 1, // deliberately 1 — useful for manual concurrency testing later
+      totalStock: 1,
       availableStock: 1,
       startsAt: new Date(),
     },
   ]);
   console.log(`Seeded ${drops.length} drops`);
 
-  // give the first two drops some purchase history, so the activity feed has data to show
   const [chicago, yeezy] = drops;
-  const purchasers = [users[0], users[1], users[2], users[3]]; // alice, bob, carol, dave
+  const purchasers = [users[0], users[1], users[2], users[3]];
 
   for (const drop of [chicago, yeezy]) {
     for (const user of purchasers) {

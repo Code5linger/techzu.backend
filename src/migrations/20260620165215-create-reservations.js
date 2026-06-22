@@ -50,7 +50,6 @@ module.exports = {
 
   async down(queryInterface) {
     await queryInterface.dropTable('Reservations');
-    // ENUM type cleanup — Postgres-specific, Sequelize doesn't auto-drop it
     await queryInterface.sequelize.query(
       'DROP TYPE IF EXISTS "enum_Reservations_status";',
     );

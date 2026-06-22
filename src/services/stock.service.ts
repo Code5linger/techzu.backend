@@ -1,4 +1,3 @@
-// src/services/stock.service.ts
 import { sequelize } from '../config/sequelize.js';
 import { QueryTypes } from 'sequelize';
 import type { Transaction } from 'sequelize';

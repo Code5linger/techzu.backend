@@ -1,4 +1,3 @@
-// src/modules/purchases/purchase.controller.ts
 import type { Request, Response } from 'express';
 import {
   purchaseReservation,

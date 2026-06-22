@@ -55,8 +55,6 @@ Reservation.init(
     sequelize,
     modelName: 'Reservation',
     tableName: 'Reservations',
-    indexes: [
-      { fields: ['status', 'expiresAt'] }, // matches the expiration sweep query shape
-    ],
+    indexes: [{ fields: ['status', 'expiresAt'] }],
   },
 );

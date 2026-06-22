@@ -46,7 +46,7 @@ async function main() {
   await purchase.destroy();
   await reservation.destroy();
   await drop.destroy();
-  await user.destroy();
+  // await user.destroy();
   console.log('Cleaned up test data.');
   await sequelize.close();
 }

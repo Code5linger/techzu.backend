@@ -2,6 +2,7 @@ import { sequelize } from '../../config/sequelize.js';
 import { Drop } from '../drops/drop.model.js';
 import { Reservation } from './reservation.model.js';
 import { decrementStockIfAvailable } from '../../services/stock.service.js';
+import { User } from '../users/user.model.js';
 
 const RESERVATION_DURATION_MS = 60_000;
 
@@ -19,9 +20,38 @@ export class DropNotFoundError extends Error {
   }
 }
 
+// export async function reserveDrop(dropId: string, userId: string) {
+//   const drop = await Drop.findByPk(dropId);
+//   if (!drop) throw new DropNotFoundError();
+
+//   return sequelize.transaction(async (t) => {
+//     const decremented = await decrementStockIfAvailable(dropId, t);
+
+//     if (!decremented) {
+//       throw new OutOfStockError();
+//     }
+
+//     const reservation = await Reservation.create(
+//       {
+//         dropId,
+//         userId,
+//         expiresAt: new Date(Date.now() + RESERVATION_DURATION_MS),
+//       },
+//       { transaction: t },
+//     );
+
+//     return reservation;
+//   });
+// }
+
 export async function reserveDrop(dropId: string, userId: string) {
   const drop = await Drop.findByPk(dropId);
   if (!drop) throw new DropNotFoundError();
+
+  const user = await User.findByPk(userId);
+  if (!user) {
+    throw new Error(`Invalid userId: ${userId}`);
+  }
 
   return sequelize.transaction(async (t) => {
     const decremented = await decrementStockIfAvailable(dropId, t);

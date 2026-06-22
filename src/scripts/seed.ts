@@ -12,15 +12,23 @@ async function main() {
   await Purchase.destroy({ where: {}, truncate: true, cascade: true });
   await Reservation.destroy({ where: {}, truncate: true, cascade: true });
   await Drop.destroy({ where: {}, truncate: true, cascade: true });
-  await User.destroy({ where: {}, truncate: true, cascade: true });
+  // await User.destroy({ where: {}, truncate: true, cascade: true });
   console.log('Cleared existing data');
 
+  // const users = await User.bulkCreate([
+  //   { username: 'alice' },
+  //   { username: 'bob' },
+  //   { username: 'carol' },
+  //   { username: 'dave' },
+  //   { username: 'erin' },
+  // ]);
+
   const users = await User.bulkCreate([
-    { username: 'alice' },
-    { username: 'bob' },
-    { username: 'carol' },
-    { username: 'dave' },
-    { username: 'erin' },
+    { id: 'user-alice', username: 'alice' },
+    { id: 'user-bob', username: 'bob' },
+    { id: 'user-carol', username: 'carol' },
+    { id: 'user-dave', username: 'dave' },
+    { id: 'user-erin', username: 'erin' },
   ]);
   console.log(`Seeded ${users.length} users`);
 
@@ -44,6 +52,13 @@ async function main() {
       price: '999.00',
       totalStock: 1,
       availableStock: 1,
+      startsAt: new Date(),
+    },
+    {
+      name: 'Lotto',
+      price: '2000.00',
+      totalStock: 10,
+      availableStock: 10,
       startsAt: new Date(),
     },
   ]);

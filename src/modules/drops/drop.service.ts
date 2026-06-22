@@ -46,6 +46,7 @@ export async function listDropsWithActivity(): Promise<DropWithActivity[]> {
 
   const activitiesByDrop = new Map<string, DropActivity[]>();
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getUsername = (obj: any) => obj.User?.username ?? 'unknown';
 
   for (const res of activeReservations) {

@@ -10,12 +10,24 @@ import { dropRoutes } from './modules/drops/drop.routes.js';
 
 const app: Application = express();
 
+// const allowedOrigins = ['https://techzu-frontend.vercel.app'];
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [];
+
 app.use(
   cors({
-    origin: 'https://techzu-frontend.vercel.app',
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
+        return callback(null, true);
+      }
+
+      return callback(new Error('Not allowed by CORS'));
+    },
     credentials: true,
   }),
 );
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

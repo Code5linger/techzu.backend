@@ -14,7 +14,17 @@ import { registerSocketServer } from './stock.socket.js';
 export function initSocketServer(httpServer: any) {
   const io = new Server(httpServer, {
     cors: {
-      origin: 'https://techzu-frontend.vercel.app',
+      origin: (origin, callback) => {
+        if (
+          !origin ||
+          origin.endsWith('.vercel.app') ||
+          origin === 'https://techzu-frontend.vercel.app'
+        ) {
+          callback(null, true);
+        } else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
       methods: ['GET', 'POST'],
       credentials: true,
     },

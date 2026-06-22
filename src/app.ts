@@ -10,7 +10,12 @@ import { dropRoutes } from './modules/drops/drop.routes.js';
 
 const app: Application = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: 'https://techzu-frontend.vercel.app',
+    credentials: true,
+  }),
+);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

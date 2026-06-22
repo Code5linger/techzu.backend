@@ -180,6 +180,24 @@ If the update affects 0 rows, the item is already claimed and the request receiv
 
 Running 100 concurrent reservation requests against a drop with `availableStock = 1`:
 
+Run
+```
+npm run load-test
+```
+
+```
+◇ injected env (0) from .env // tip: ⌘ custom filepath { path: '/custom/path/.env' }
+Executing (default): SELECT 1+1 AS result
+Executing (default): INSERT INTO "Drops" ("id","name","price","totalStock","availableStock","startsAt","createdAt","updatedAt") VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING "id","name","price","totalStock","availableStock","startsAt","createdAt","updatedAt";
+Executing (default): INSERT INTO "Users" ("id","username","createdAt","updatedAt") VALUES ($1,$2,$3,$4) RETURNING "id","username","createdAt","updatedAt";
+Firing 100 concurrent reserve requests at drop 2ba67c59-c076-4c62-afc1-ca44948e3a59 (stock = 1)...
+Results: 1 succeeded (201), 99 rejected (409), 0 other
+Executing (default): SELECT "id", "name", "price", "totalStock", "availableStock", "startsAt", "createdAt", "updatedAt" FROM "Drops" AS "Drop" WHERE "Drop"."id" = '2ba67c59-c076-4c62-afc1-ca44948e3a59';
+Final availableStock in DB: 0
+✅ PASS: exactly one reservation succeeded, stock correctly at 0
+```
+
+
 ```
 ✓  1 request  → 201 Created  (reservation granted)
 ✗ 99 requests → 409 Conflict (out of stock)
@@ -421,4 +439,4 @@ techzu.demo/
 
 ## Author
 
-**Sheikh Sakib Ahmed** — Full Stack Developer
+**Sheikh Sakib Ahmed**. Full Stack Developer

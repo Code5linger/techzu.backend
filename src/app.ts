@@ -1,12 +1,12 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import { dropRoutes } from './modules/drops/drop.routes';
+// import { dropRoutes } from './modules/drops/drop.routes';
 import { userRoutes } from './modules/users/user.routes';
 
 import './config/associations.js';
 import { reservationRoutes } from './modules/reservations/reservation.routes';
 import { purchaseRoutes } from './modules/purchases/purchase.routes';
-console.log('Associations loaded');
+import { dropRoutes } from './modules/drops/drop.routes.js';
 
 const app: Application = express();
 

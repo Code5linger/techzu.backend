@@ -5,7 +5,8 @@ import { registerSocketServer } from './stock.socket.js';
 export function initSocketServer(httpServer: HttpServer): Server {
   const io = new Server(httpServer, {
     cors: {
-      origin: '*',
+      origin: process.env.CLIENT_URL || '*',
+      credentials: true,
     },
   });
 

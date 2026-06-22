@@ -14,6 +14,58 @@ A high-concurrency inventory management system built for the Techzu Ichicode tec
 
 ---
 
+## Backend Setup
+
+### Clone Repository
+
+```bash
+git clone https://github.com/Code5linger/techzu.backend.git
+cd techzu.backend
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Configure Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+PORT=5000
+DATABASE_URL=postgresql://neondb_owner:<---your-id>@<---your-password>.c-2.ap-southeast-1.aws.neon.tech/neondb?sslmode=verify-full&channel_binding=require
+NODE_ENV=development
+
+
+ALLOWED_ORIGINS=https://techzu-frontend.vercel.app,https://techzu-frontend-p29fe7h8v-codeslingers-projects.vercel.app, http://localhost:5173, http://localhost:5174
+```
+
+### Database Setup
+
+Create a PostgreSQL database named `techzu`.
+
+Seed the database with sample data:
+
+```bash
+npm run seed
+```
+
+### Start Backend Server
+
+```bash
+npm run dev
+```
+
+The API will be available at:
+
+```text
+http://localhost:5000
+```
+
+
+---
 ## Features
 
 - **Real-time stock updates**. All connected clients see inventory changes instantly via WebSocket
